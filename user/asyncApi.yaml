@@ -1,0 +1,107 @@
+asyncapi: 2.0.0
+info:
+  title: User
+  version: 1.0.0
+  description: |
+    List of events which are published by the user module
+components:
+  messages:
+    userCreated:
+      description: Fired when a new user is created
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+            default: com.agiletv.user.domain.event.UserCreated
+          aggregateId:
+            type: string
+          aggregateName:
+            type: string
+            default: Patient
+          occurredOn:
+            type: string
+            format: date-time
+          payload:
+            $ref: '#/components/schemas/user'
+    userUpdated:
+      description: Fired when an user is updated
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+            default: com.agiletv.user.domain.event.UserUpdated
+          aggregateId:
+            type: string
+          aggregateName:
+            type: string
+            default: Patient
+          occurredOn:
+            type: string
+            format: date-time
+          payload:
+            $ref: '#/components/schemas/user'
+    userDeleted:
+      description: Fired when an user is deleted
+      payload:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+            default: com.agiletv.user.domain.event.UserDeleted
+          aggregateId:
+            type: string
+          aggregateName:
+            type: string
+            default: Patient
+          occurredOn:
+            type: string
+            format: date-time
+  schemas:
+    user:
+      type: object
+      required:
+        - username
+        - name
+        - firstSurname
+        - email
+      properties:
+        username:
+          type: string
+          description: User alias or username
+        name:
+          type: string
+          description: User name
+        firstSurname:
+          type: string
+          description: User first surname
+        email:
+          type: string
+          description: Valid email address
+        gender:
+          type: string
+          description: User Gender
+        pictureUrl:
+          type: string
+          description: User picture url
+channels:
+  com/agiletv/user/domain/event/UserCreated:
+    publish:
+      message:
+        $ref: '#/components/messages/userCreated'
+  com/agiletv/user/domain/event/UserUpdated:
+    publish:
+      message:
+        $ref: '#/components/messages/userUpdated'
+  com/agiletv/user/domain/event/UserDeleted:
+    publish:
+      message:
+        $ref: '#/components/messages/userDeleted'
+  
